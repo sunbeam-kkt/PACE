@@ -35,7 +35,7 @@ PACE contains three key components:
 ## 🖼️ Framework
 
 <p align="center">
-  <img src="assets/framework.png" width="90%">
+  <img src="[assets/framework.png](https://github.com/sunbeam-kkt/PACE/blob/master/Figure2.png)" width="90%">
 </p>
 
 PACE first learns from privileged teacher signals during training. At deployment, the UAV agent no longer receives external assistance. Instead, it uses the learned internal assistance state to support self-correction, counterfactual reasoning, and executable trajectory planning.

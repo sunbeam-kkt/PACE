@@ -42,47 +42,36 @@ PACE first learns from privileged teacher signals during training. At deployment
 
 ## 🔥 News
 
-* `[YYYY-MM-DD]` Code and dataset preparation instructions released.
-* `[YYYY-MM-DD]` PACE accepted by / submitted to `CONFERENCE_NAME`.
-* `[YYYY-MM-DD]` Preprint released.
-
----
-
-## ✅ TODO
-
-* [ ] Release training code.
-* [ ] Release evaluation code.
-* [ ] Release pretrained checkpoints.
-* [ ] Release dataset preprocessing scripts.
-* [ ] Release visualization tools.
-* [ ] Release full documentation.
-
+* `[2026-7-20]` Our paper was submitted to AAAI-2027!
 ---
 
 ## 📂 Repository Structure
 
 ```text
-PACE/
-├── assets/                         # Figures used in README
-├── configs/                        # Training and evaluation configs
-│   ├── train_pace.yaml
-│   └── eval_pace.yaml
-├── data/                           # Dataset preparation scripts
-│   ├── preprocess.py
-│   └── split_dataset.py
-├── datasets/                       # Dataset loading modules
-├── models/                         # PACE model components
-│   ├── privileged_distillation.py
-│   ├── counterfactual_validator.py
-│   ├── affordance_planner.py
-│   └── pace_agent.py
-├── trainers/                       # Training pipeline
-├── evaluators/                     # Evaluation metrics and benchmark scripts
-├── scripts/                        # Running scripts
-│   ├── train.sh
+PACE/                      
+├── Model/LLaMA-UAV                        # Pre-trained large language model
+│   ├── scripts
+│   └── tools
+├── data/                                  # Dataset preparation scripts
+│   ├── meta
+│   ├── uav_dataset
+│   └── sample_dataset.py
+├── airsim_plugin/                         # PACE uses a simulation environment setup
+│   ├── AirVLNSimulatorClientTool.py
+│   └──AirVLNSimulatorServerTool.py
+├── scripts/                               # Method Validation
+│   ├── dagger_NYC.sh
+│   ├── dagger_fast.sh
 │   ├── eval.sh
-│   └── visualize.sh
-├── tools/                          # Utility functions
+│   ├── eval_fast.sh
+│   ├── eval_param_flopts.sh
+│   └── metric.sh
+├── src/                                  
+│   ├── common
+│   ├── model_wrapper
+│   └── vlnce_src
+├── tools/                                 # Utility functions
+├── utils/                         
 ├── requirements.txt
 └── README.md
 ```
@@ -113,12 +102,214 @@ After route validation, PACE grounds the decision into UAV-executable motion. Th
 
 ### Comparison with Existing Methods
 
-| Method     |  NE ↓ |  SR ↑ | SPL ↑ | RSR ↑ | CRA ↑ | CVR ↓ |
-| ---------- | ----: | ----: | ----: | ----: | ----: | ----: |
-| Baseline-1 |     - |     - |     - |     - |     - |     - |
-| Baseline-2 |     - |     - |     - |     - |     - |     - |
-| Baseline-3 |     - |     - |     - |     - |     - |     - |
-| **PACE**   | **-** | **-** | **-** | **-** | **-** | **-** |
+
+## 📊 Main Results
+
+We compare our method with human performance, rule-based baselines, and recent UAV vision-language navigation methods. The results are reported on **Full**, **Easy**, and **Hard** splits.
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Method</th>
+      <th rowspan="2">Publish</th>
+      <th rowspan="2">Assistant</th>
+      <th colspan="4">Full</th>
+      <th colspan="4">Easy</th>
+      <th colspan="4">Hard</th>
+    </tr>
+    <tr>
+      <th>NE↓</th>
+      <th>SR↑</th>
+      <th>OSR↑</th>
+      <th>SPL↑</th>
+      <th>NE↓</th>
+      <th>SR↑</th>
+      <th>OSR↑</th>
+      <th>SPL↑</th>
+      <th>NE↓</th>
+      <th>SR↑</th>
+      <th>OSR↑</th>
+      <th>SPL↑</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Human</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>14.15</td>
+      <td>94.51</td>
+      <td>94.51</td>
+      <td>77.84</td>
+      <td>11.68</td>
+      <td>95.44</td>
+      <td>95.44</td>
+      <td>76.19</td>
+      <td>17.16</td>
+      <td>93.37</td>
+      <td>93.37</td>
+      <td>79.85</td>
+    </tr>
+    <tr>
+      <td>Random</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>222.20</td>
+      <td>0.14</td>
+      <td>0.21</td>
+      <td>0.07</td>
+      <td>142.07</td>
+      <td>0.26</td>
+      <td>0.39</td>
+      <td>0.13</td>
+      <td>320.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <td>Fixed</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>188.61</td>
+      <td>2.27</td>
+      <td>8.16</td>
+      <td>1.40</td>
+      <td>121.36</td>
+      <td>3.48</td>
+      <td>11.48</td>
+      <td>2.14</td>
+      <td>270.69</td>
+      <td>0.79</td>
+      <td>4.09</td>
+      <td>0.49</td>
+    </tr>
+    <tr>
+      <td>CMA</td>
+      <td>-</td>
+      <td>✓</td>
+      <td>135.73</td>
+      <td>8.37</td>
+      <td>18.72</td>
+      <td>7.90</td>
+      <td>84.89</td>
+      <td>11.48</td>
+      <td>24.52</td>
+      <td>10.68</td>
+      <td>197.77</td>
+      <td>4.57</td>
+      <td>11.65</td>
+      <td>4.51</td>
+    </tr>
+    <tr>
+      <td>TravelUAV</td>
+      <td>ICLR'25</td>
+      <td>✓</td>
+      <td>98.66</td>
+      <td>17.45</td>
+      <td>48.87</td>
+      <td>15.76</td>
+      <td>66.40</td>
+      <td>20.26</td>
+      <td>51.23</td>
+      <td>18.10</td>
+      <td>138.04</td>
+      <td>14.02</td>
+      <td>45.98</td>
+      <td>12.90</td>
+    </tr>
+    <tr>
+      <td>OpenVLN</td>
+      <td>arXiv'25</td>
+      <td>✓</td>
+      <td>125.97</td>
+      <td>14.39</td>
+      <td>28.03</td>
+      <td>12.94</td>
+      <td>87.96</td>
+      <td>15.22</td>
+      <td>30.64</td>
+      <td>13.31</td>
+      <td>175.54</td>
+      <td>13.32</td>
+      <td>24.62</td>
+      <td>12.55</td>
+    </tr>
+    <tr>
+      <td>NavFoM</td>
+      <td>ICLR'26</td>
+      <td>✓</td>
+      <td>93.05</td>
+      <td>29.17</td>
+      <td>49.24</td>
+      <td>25.03</td>
+      <td>58.98</td>
+      <td>32.91</td>
+      <td>53.16</td>
+      <td>27.87</td>
+      <td>143.83</td>
+      <td>23.58</td>
+      <td>43.40</td>
+      <td>20.80</td>
+    </tr>
+    <tr>
+      <td>NeuroKalman</td>
+      <td>ICML'26</td>
+      <td>✓</td>
+      <td>71.56</td>
+      <td>25.86</td>
+      <td>58.73</td>
+      <td>22.43</td>
+      <td>42.70</td>
+      <td>30.52</td>
+      <td>62.70</td>
+      <td>25.86</td>
+      <td>105.07</td>
+      <td>20.11</td>
+      <td>53.90</td>
+      <td>18.21</td>
+    </tr>
+    <tr>
+      <td><b>Ours-Assistant</b></td>
+      <td>-</td>
+      <td>✓</td>
+      <td><b>62.58</b></td>
+      <td><b>40.82</b></td>
+      <td><b>68.05</b></td>
+      <td><b>34.76</b></td>
+      <td><b>31.44</b></td>
+      <td><b>44.27</b></td>
+      <td><b>73.40</b></td>
+      <td><b>40.39</b></td>
+      <td><b>94.51</b></td>
+      <td><b>35.74</b></td>
+      <td><b>58.70</b></td>
+      <td><b>33.50</b></td>
+    </tr>
+    <tr>
+      <td><b>Ours</b></td>
+      <td>-</td>
+      <td>✗</td>
+      <td><b>66.91</b></td>
+      <td><b>35.32</b></td>
+      <td><b>64.83</b></td>
+      <td><b>32.70</b></td>
+      <td><b>35.22</b></td>
+      <td><b>40.86</b></td>
+      <td><b>64.88</b></td>
+      <td><b>35.65</b></td>
+      <td><b>103.55</b></td>
+      <td><b>32.92</b></td>
+      <td><b>56.43</b></td>
+      <td><b>29.37</b></td>
+    </tr>
+  </tbody>
+</table>
+
+**Metrics.** `NE` denotes navigation error, where lower is better. `SR` denotes success rate, `OSR` denotes oracle success rate, and `SPL` denotes success weighted by path length, where higher is better.
+
+**Note.** `Ours-Assistant` denotes the variant with external assistance, while `Ours` denotes the assistant-free deployment setting.
+
 
 ### Ablation Study
 

@@ -305,8 +305,6 @@ We compare our method with human performance, rule-based baselines, and recent U
 **Note.** `Ours-Assistant` denotes the variant with external assistance, while `Ours` denotes the assistant-free deployment setting.
 
 
-### Ablation Study
-
 ## 🧪 Ablation Study
 
 We conduct ablation studies to analyze the contribution of each component in our framework.

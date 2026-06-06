@@ -1,6 +1,6 @@
-<img width="239" height="27" alt="image" src="https://github.com/user-attachments/assets/50ac9820-fec2-4018-8740-e159d022ca61" /><img width="437" height="27" alt="image" src="https://github.com/user-attachments/assets/9d9ac312-502f-4fd1-a3f9-c18b3c54b2fe" /># PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation
+# PACE: Privileged Assistance for Counterfactual Execution in Assistant-Free UAV Vision-Language Navigation
 
-<p align="center">
+<!-- <p align="center">
   <a href="YOUR_PAPER_LINK"><img src="https://img.shields.io/badge/Paper-arXiv-red"></a>
   <a href="YOUR_PROJECT_PAGE_LINK"><img src="https://img.shields.io/badge/Project-Page-blue"></a>
   <a href="YOUR_DATASET_LINK"><img src="https://img.shields.io/badge/Dataset-Download-green"></a>
@@ -10,7 +10,7 @@
   <b>Assistant-free UAV vision-language navigation with internalized privileged assistance, counterfactual route validation, and physically executable planning.</b>
 </p>
 
----
+--- -->
 
 ## 📌 Overview
 
